@@ -27,3 +27,24 @@ def print_date(select_date: str):
 
 def print_data(result):
     print('[' + result.title + '\n' + result.created + '\n' + result.content + '\n' + result.source + ']\n')
+
+
+def insert_data(data_table_list):
+    dynamodb = boto3.resource('dynamodb')
+
+    table = dynamodb.Table('notices')
+
+    for data in data_table_list:
+        table.put_item(
+            Item={
+                'created': data.created,
+                'title': data.title,
+                'content': data.content,
+                'source': data.source,
+            }
+        )
+
+    table.meta.client.get_waiter('table_exists').wait(TableName='notices')
+    print('insert_data()')
+
+

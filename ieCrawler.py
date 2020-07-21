@@ -82,11 +82,13 @@ def get_data(href, driver):
     # 2. 제목 가져오기
     temp.title = driver.find_element_by_class_name('field-group-div').find_element_by_tag_name('h2').text
     # 3. 작성일 가져오기
-    temp.created = driver.find_element_by_class_name('field-name-post-date').find_element_by_class_name('even').text
+    temp.created = driver.find_element_by_class_name(
+        'field-name-post-date').find_element_by_class_name('even').text[0:10]
     # 4. 내용 가져오기
     temp.content = driver.find_element_by_class_name('field-name-body').text
     # 5. return
     return temp, driver
+
 
 main()
 

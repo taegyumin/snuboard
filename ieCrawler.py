@@ -20,7 +20,13 @@ def crawl(url, path):
     data_table_list = []
     date_index = 0
     # 1. 크롬열기
-    driver = webdriver.Chrome(path)
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
+    options.add_argument("--disable-gpu")
+    options.add_argument('lang=ko_KR')
+    driver = webdriver.Chrome(path, options=options)
+    time.sleep(1)
+
     # 2. url 이동
     driver.get(url)
     time.sleep(1)

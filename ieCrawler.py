@@ -47,14 +47,12 @@ def crawl(url, path):
             driver.back()  # 뒤로가기
             time.sleep(1)
 
-        #DB 저장하는 함수로 바꾸기?
-        for data in data_table_list:
-            print_data(data)
-        # insert_data(data_table_list)
+        insert_data(data_table_list)
 
         if date_index == 10:
             del noti_date_list[:]
             del href_list[:]
+            del data_table_list
             date_index = 0
             driver.find_element_by_class_name('next').find_element_by_css_selector('a').send_keys(Keys.ENTER)
             time.sleep(1)
@@ -62,6 +60,7 @@ def crawl(url, path):
             break
 
     driver.close()
+    del data_table_list
     del noti_date_list[:]
     del href_list[:]
 

@@ -1,7 +1,4 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
 from Common import *
-import time
 
 
 def main():

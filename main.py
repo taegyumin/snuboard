@@ -2,6 +2,7 @@ from dynamoDB import scan, insert, scan_all
 from crawler.common import Board, Department, User
 from crawler.common import crawl
 from boto3.dynamodb.conditions import Attr
+import json
 
 # board0 = Board(id='0', name='취업', uri='/ko/board/6', department_id='0')
 # board1 = Board(id='1', name='학부', uri='/ko/board/7', department_id='0')
@@ -44,3 +45,10 @@ from boto3.dynamodb.conditions import Attr
 #
 # filter_expression = Attr('id').eq('0')
 # ie = scan(filter_expression=filter_expression, table_name='departments')
+
+# notices = crawl(board_id='0')
+# answer = []
+# for notice in notices:
+#     answer.append(notice.__dict__)
+# json.dumps(answer)
+#

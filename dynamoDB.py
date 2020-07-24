@@ -5,7 +5,10 @@ def insert(table_name, items):
         table = dynamoDB.Table(table_name)
 
         for item in items:
-                table.put_item(Item=item.__dict__)
+                try:
+                        table.put_item(Item=item.__dict__)
+                except:
+                        pass
 
 def scan(table_name, filter_expression):
         dynamoDB = boto3.resource('dynamodb')

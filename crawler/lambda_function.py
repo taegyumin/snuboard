@@ -1,19 +1,13 @@
 from crawler.common import crawl
-from dynamoDB import insert
-import boto3
+from dynamoDB import insert, scan_all
 
 def lambda_handler(event=None, context=None):
     notices = []
-
-    dynamoDB = boto3.resource('dynamodb')
-    table = dynamoDB.Table('boards')
-    response = table.scan()
-    boards = response['Items']
+    boards = scan_all('boards')
 
     board_ids = []
     for board in boards:
         board_ids.append(board['id'])
-    board_ids = sorted(board_ids)
 
     for board_id in board_ids:
         notices += (crawl(board_id=str(board_id)))

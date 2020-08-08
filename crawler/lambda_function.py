@@ -1,6 +1,5 @@
-import json
 from crawler.common import crawl
-from dynamoDB import insert, scan
+from dynamoDB import insert
 import boto3
 
 def lambda_handler(event=None, context=None):

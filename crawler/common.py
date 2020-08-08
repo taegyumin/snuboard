@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from dynamoDB import scan
-from boto3.dynamodb.conditions import Attr, Key
+from boto3.dynamodb.conditions import Attr
 import requests
 from crawler.types import *
 

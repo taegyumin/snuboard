@@ -4,7 +4,6 @@ import boto3
 
 def lambda_handler(event=None, context=None):
     notices = []
-    # answer = []
 
     dynamoDB = boto3.resource('dynamodb')
     table = dynamoDB.Table('boards')

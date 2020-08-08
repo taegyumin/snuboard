@@ -4,11 +4,14 @@ def insert(table_name, items):
         dynamoDB = boto3.resource('dynamodb')
         table = dynamoDB.Table(table_name)
 
-        for item in items:
-                try:
+        try:
+                for item in items:
                         table.put_item(Item=item.__dict__)
-                except:
-                        pass
+                return True
+
+        except Exception as e:
+                print('Error occured... ', e)
+                return False
 
 def scan(table_name, filter_expression):
         dynamoDB = boto3.resource('dynamodb')
@@ -27,6 +30,3 @@ def scan_all(table_name):
         response = table.scan()
         items = response['Items']
         return items
-
-
-

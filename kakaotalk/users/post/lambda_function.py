@@ -79,39 +79,3 @@ def lambda_handler(event=None, context=None):
   return {
     'body': json.dumps(response)
   }
-
-  # items = response['Items']
-  # print(items[0]['name'])
-
-  # utterance = event["userRequest"]["utterance"]
-  #
-  # ids = utterance.split(",")
-  # for idx in range(len(ids)):
-  #   ids[idx] = ids[idx].strip()
-  #
-  # print(ids)
-
-  #     # for notice in notices:
-  #     #     answer.append(notice.__dict__)
-  #     # answer = json.dumps(answer)
-  #
-  #     # kakao_id = json.loads(event['kakao_id'])
-  #     # insert(table_name='users', items=[{'kakao_id': str(kakao_id)}, {'kakao_id': '2'}])
-  #
-  #     user_id = event["userRequest"]["user"]["id"]
-  #     kakao_id = event["action"]["params"]["kakao_id"]
-  #     # request_body = json.loads(event["userRequest"])
-  #     # params = request_body['action']['params']
-  #     # kakao_id = params['kakao_id']
-
-  #     return {
-  #         'body': json.dumps({"kakao_id": user_id})
-  #     }
-  #
-  # # result = lambda_handler()
-  # # answer = result['body']
-  # # print(answer)
-  #
-  # print(lambda_handler(event=event)['body'])
-
-lambda_handler(event=event)

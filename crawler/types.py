@@ -31,11 +31,12 @@ class User:
         self.schedule = schedule
         self.filter = filter
 
-class params_parse_notices:
-    def __init__(self, soup, base_date, base_href, department_id, board_id):
+class Params:
+    def __init__(self, soup=None, base_date=None, base_href=None, uri=None, department_id=None, board_id=None):
         self.soup = soup
         self.base_date = base_date
         self.base_href = base_href
+        self.uri = uri
         self.department_id = department_id
         self.board_id = board_id
 

@@ -1,5 +1,6 @@
 from crawler.common import crawl
 from dynamoDB import insert, scan_all
+import json
 
 def lambda_handler(event=None, context=None):
     notices = []
@@ -14,4 +15,11 @@ def lambda_handler(event=None, context=None):
 
     insert('notices', items=notices)
 
-    return notices
+    result = []
+
+    for notice in notices:
+        result.append(notice.__dict__)
+
+    return {
+        'body': json.dumps(result)
+    }

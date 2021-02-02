@@ -4,37 +4,41 @@ from boto3.dynamodb.conditions import Attr
 import requests
 from crawler.types import *
 
+
 def crawl(board_id):
+    params = Params(board_id=board_id)
 
-    filter_expression = Attr('id').eq(str(board_id))
-    board = scan(filter_expression=filter_expression, table_name='boards')[0]
+    soup = enter_board(params)
 
-    board_id = board['id']
-    department_id = board['department_id']
+def enter_board(params):
+    table_name = 'boards'
+    filter_expression = Attr('id').eq(str(params.board_id))
+    board = scan(filter_expression=filter_expression, table_name=table_name)[0]
 
-    filter_expression = Attr('id').eq(str(department_id))
-    department = scan(filter_expression=filter_expression, table_name='departments')[0]
+    params.department_id = board['department_id']
 
-    base_href = department['base_href']
-    href = base_href + board['uri']
+    table_name = 'departments'
+    filter_expression = Attr('id').eq(str(params.department_id))
+    department = scan(filter_expression=filter_expression, table_name=table_name)[0]
 
-    req = requests.get(href)
+    params.base_href = department['base_href']
+    params.uri = board['uri']
+
+    req = requests.get(params.base_href + params.uri)
     html = req.text
     soup = BeautifulSoup(html, 'html.parser')
 
-    base_date = get_base_date(board_id=board_id)
+    return soup
 
-    params = params_parse_notices(soup=soup,
-                                  base_date=base_date,
-                                  base_href=base_href,
-                                  department_id=department_id,
-                                  board_id=board_id
-                                  )
+def get_notices_links(soup: BeautifulSoup, params: Params):
+    params.base_date = get_base_date(board_id=params.board_id)
 
     notices = parse_notices(params)
+
     return notices
 
-def parse_notices(params: params_parse_notices):
+
+def parse_notices(params: Params):
     department_id = params.department_id
     result = []
 
@@ -45,7 +49,7 @@ def parse_notices(params: params_parse_notices):
 
     return result
 
-def parse_notices_ie(params: params_parse_notices):
+def parse_notices_ie(params: Params):
     soup = params.soup
     base_date = params.base_date
     base_href = params.base_href
@@ -99,7 +103,7 @@ def parse_notice_ie(params: params_parse_notice):
                   href=href,
                   board_id=board_id)
 
-def parse_notices_eng(params: params_parse_notices):
+def parse_notices_eng(params: Params):
     soup = params.soup
     base_date = params.base_date
     base_href = params.base_href

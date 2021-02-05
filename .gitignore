@@ -1,2 +1,13 @@
-**/lib/
-**/node_modules/
+node_modules
+.vscode/
+.DS_Store
+yarn-error.log*
+.build
+.serverless
+.dynamodb
+.webpack
+*.log
+lib/
+.build
+_warmup
+

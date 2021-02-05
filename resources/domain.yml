@@ -1,0 +1,5 @@
+# If you want to use another domain, modify this file
+
+# hostedzone: 'Z005956633JZKOSFE37OV'
+# Include ${opt:stage} if you want to use a different endpoint for each stage
+apiUrl: 'api.snuboard.io'

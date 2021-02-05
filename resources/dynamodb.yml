@@ -1,0 +1,50 @@
+Resources:
+  NoticeTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.tables.notice}
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        # - AttributeName: createdAt
+        #   AttributeType: S
+        # - AttributeName: title
+        #   AttributeType: S
+        # - AttributeName: boardId
+        #   AttributeType: S
+  BoardTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.tables.board}
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        # - AttributeName: departmentId
+        #   AttributeType: S
+        # - AttributeName: name
+        #   AttributeType: S
+        # - AttributeName: uri
+        #   AttributeType: S
+  DepartmentTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.tables.department}
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        # - AttributeName: baseHref
+        #   AttributeType: S
+        # - AttributeName: name
+        #   AttributeType: S

@@ -1,5 +1,5 @@
 export interface DepartmentData {
   id: string;
-  baseHref: string;
+  url: string;
   name: string;
 }

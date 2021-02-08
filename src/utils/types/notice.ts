@@ -2,7 +2,7 @@ export interface NoticeData {
   id: string;
   createdAt: string;
   title: string;
-  boardId: number;
+  boardId: string;
+  url: string;
   content?: string;
-  href: string;
 }

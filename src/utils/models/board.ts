@@ -11,7 +11,7 @@ import dynamodb, { AttributeMap } from '../helpers/dynamodb';
 function assertBoardData(data: AttributeMap): asserts data is BoardData {
   const attributes: (keyof BoardData)[] = ['id', 'departmentId', 'name', 'url'];
   const isContainingAttributes = attributes.every((attr) => attr in data);
-  if (isContainingAttributes && typeof data.appData === 'object') {
+  if (isContainingAttributes) {
     return;
   }
   throw new Error('Invalid boardData');

@@ -33,7 +33,7 @@ Resources:
         #   AttributeType: S
         # - AttributeName: name
         #   AttributeType: S
-        # - AttributeName: uri
+        # - AttributeName: url
         #   AttributeType: S
   DepartmentTable:
     Type: AWS::DynamoDB::Table
@@ -46,7 +46,7 @@ Resources:
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
-        # - AttributeName: baseHref
+        # - AttributeName: url
         #   AttributeType: S
         # - AttributeName: name
         #   AttributeType: S

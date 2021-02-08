@@ -1,3 +1,4 @@
+import { max } from 'lodash';
 import { BoardData } from '../types/board';
 import {
   generateScanQuery,
@@ -6,7 +7,11 @@ import {
   putWithErrorHandling,
 } from '../helpers/query';
 import Department from './department';
+import Notice from './notice';
+import { appConfig } from '../constants/index';
 import dynamodb, { AttributeMap } from '../helpers/dynamodb';
+
+const { serviceLaunchedAt } = appConfig;
 
 function assertBoardData(data: AttributeMap): asserts data is BoardData {
   const attributes: (keyof BoardData)[] = ['id', 'departmentId', 'name', 'url'];
@@ -41,6 +46,13 @@ class Board {
 
   getData(): BoardData {
     return this.data;
+  }
+
+  async getBaseDate(): Promise<string> {
+    const notices = await Notice.find({ boardId: this.data.id });
+    if (notices.length === 0) return serviceLaunchedAt;
+    const dates = notices.map((notice) => notice.createdAt);
+    return max(dates) || serviceLaunchedAt;
   }
 
   static async create(data: BoardData): Promise<BoardData> {

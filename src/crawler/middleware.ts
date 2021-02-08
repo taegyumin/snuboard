@@ -45,6 +45,7 @@ const middleware = (handler: Handler): APIGatewayProxyHandler => {
         const result = await taskWithTimeout();
         return result;
       } catch (error) {
+        console.log(error);
         error.name = `scheduled ${error.name}`;
         return {
           statusCode: error.statusCode ?? 500,

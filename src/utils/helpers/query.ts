@@ -162,11 +162,12 @@ export const countAll = async (
 };
 
 export const putWithErrorHandling = async (params: {
+  Key: DynamoDB.DocumentClient.Key;
   Item: AttributeMap;
   TableName: string;
   ConditionExpression: string;
 }): Promise<void> => {
-  const { Item, TableName, ConditionExpression } = params;
+  const { Key, Item, TableName, ConditionExpression } = params;
   try {
     await dynamodb
       .put({

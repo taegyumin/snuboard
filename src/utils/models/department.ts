@@ -42,7 +42,9 @@ class Department {
   }
 
   static async create(data: DepartmentData): Promise<DepartmentData> {
+    const { id } = data;
     const params = {
+      Key: { id },
       Item: data,
       TableName: TABLE_NAME,
       ConditionExpression: 'attribute_not_exists(id)',

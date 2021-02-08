@@ -44,7 +44,9 @@ class Board {
   }
 
   static async create(data: BoardData): Promise<BoardData> {
+    const { id } = data;
     const params = {
+      Key: { id },
       Item: data,
       TableName: TABLE_NAME,
       ConditionExpression: 'attribute_not_exists(id)',

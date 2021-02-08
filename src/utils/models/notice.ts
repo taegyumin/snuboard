@@ -59,10 +59,11 @@ class Notice {
   }
 
   static async create(data: NoticeData): Promise<NoticeData> {
+    const { createdAt, title } = data;
     const params = {
+      Key: { createdAt, title },
       Item: data,
       TableName: TABLE_NAME,
-      ConditionExpression: 'attribute_not_exists(id)',
     };
 
     await putWithErrorHandling(params);

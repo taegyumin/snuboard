@@ -5,14 +5,16 @@ Resources:
       TableName: ${self:custom.tables.notice}
       BillingMode: PAY_PER_REQUEST
       KeySchema:
-        - AttributeName: id
+        - AttributeName: createdAt
           KeyType: HASH
+        - AttributeName: title
+          KeyType: RANGE
       AttributeDefinitions:
-        - AttributeName: id
+        - AttributeName: createdAt
           AttributeType: S
-        # - AttributeName: createdAt
-        #   AttributeType: S
-        # - AttributeName: title
+        - AttributeName: title
+          AttributeType: S
+        # - AttributeName: id
         #   AttributeType: S
         # - AttributeName: boardId
         #   AttributeType: S

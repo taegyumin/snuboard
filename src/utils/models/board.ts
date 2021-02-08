@@ -17,7 +17,7 @@ function assertBoardData(data: AttributeMap): asserts data is BoardData {
   throw new Error('Invalid boardData');
 }
 
-const TABLE_NAME = 'boards';
+const TABLE_NAME = appConfig.tables.board;
 
 class Board {
   // eslint-disable-next-line no-useless-constructor

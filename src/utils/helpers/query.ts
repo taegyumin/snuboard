@@ -1,6 +1,7 @@
 import type { DynamoDB } from 'aws-sdk';
 import { map, pickBy } from 'lodash';
 import dynamodb, { AttributeMap } from './dynamodb';
+import { generateId } from './generateId';
 
 // 26진법으로 number 표현
 export const getKeyForIndex = (index: number): string => {
@@ -165,13 +166,14 @@ export const putWithErrorHandling = async (params: {
   Key: DynamoDB.DocumentClient.Key;
   Item: AttributeMap;
   TableName: string;
-  ConditionExpression: string;
+  ConditionExpression?: string;
 }): Promise<void> => {
   const { Key, Item, TableName, ConditionExpression } = params;
+  const idToCheckFakeConditionalException = generateId(15);
   try {
     await dynamodb
       .put({
-        Item: { ...Item },
+        Item: { ...Item, idToCheckFakeConditionalException },
         TableName,
         ConditionExpression,
       })
@@ -182,6 +184,24 @@ export const putWithErrorHandling = async (params: {
     );
     e.tag = { ...tags, originalErrorName: e.name };
     e.name = `${TableName} Error`;
+
+    if (e.code === 'ConditionalCheckFailedException') {
+      const { Item: PriorItem } = await dynamodb
+        .get({ Key, TableName })
+        .promise();
+
+      if (
+        PriorItem &&
+        PriorItem.idToCheckFakeConditionalException ===
+          idToCheckFakeConditionalException
+      ) {
+        // DynamoDB write internal server error occurs fake conditional check failed exception.
+        // See https://console.aws.amazon.com/support/home#/case/?displayId=7744503111&language=en
+        return;
+      }
+      // await putWithErrorHandling(params);
+      // return;
+    }
     throw e;
   }
 };

@@ -16,7 +16,7 @@ function assertDepartmentData(
   if (isContainingAttributes) {
     return;
   }
-  throw new Error('Invalid noticeData');
+  throw new Error('Invalid departmentData');
 }
 
 const TABLE_NAME = appConfig.tables.department;

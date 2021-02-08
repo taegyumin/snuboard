@@ -13,7 +13,7 @@ function assertDepartmentData(
 ): asserts data is DepartmentData {
   const attributes: (keyof DepartmentData)[] = ['id', 'url', 'name'];
   const isContainingAttributes = attributes.every((attr) => attr in data);
-  if (isContainingAttributes && typeof data.appData === 'object') {
+  if (isContainingAttributes) {
     return;
   }
   throw new Error('Invalid noticeData');

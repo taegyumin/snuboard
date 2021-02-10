@@ -5,19 +5,11 @@ Resources:
       TableName: ${self:custom.tables.notice}
       BillingMode: PAY_PER_REQUEST
       KeySchema:
-        - AttributeName: createdAt
+        - AttributeName: id
           KeyType: HASH
-        - AttributeName: title
-          KeyType: RANGE
       AttributeDefinitions:
-        - AttributeName: createdAt
+        - AttributeName: id
           AttributeType: S
-        - AttributeName: title
-          AttributeType: S
-        # - AttributeName: id
-        #   AttributeType: S
-        # - AttributeName: boardId
-        #   AttributeType: S
   BoardTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -29,12 +21,6 @@ Resources:
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
-        # - AttributeName: departmentId
-        #   AttributeType: S
-        # - AttributeName: name
-        #   AttributeType: S
-        # - AttributeName: url
-        #   AttributeType: S
   DepartmentTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -46,7 +32,3 @@ Resources:
       AttributeDefinitions:
         - AttributeName: id
           AttributeType: S
-        # - AttributeName: url
-        #   AttributeType: S
-        # - AttributeName: name
-        #   AttributeType: S

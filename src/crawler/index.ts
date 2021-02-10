@@ -5,7 +5,7 @@ import Board from '../utils/models/board';
 import Notice from '../utils/models/notice';
 import { NoticeData } from '../utils/types/notice';
 import Department from '../utils/models/department';
-import { generateId } from '../utils/helpers/generateId';
+import { generateHash } from '../utils/helpers/generateId';
 
 export const instance = axios.create();
 
@@ -56,8 +56,8 @@ const crawlIE = async (): Promise<void> => {
 
       const noticeData: NoticeData[] = await Promise.all(
         noticeHeaders.map(async (noticeHeader) => {
-          const id = await generateId(10);
           const { urlPath, createdAt, title } = noticeHeader;
+          const id = await generateHash(urlPath);
           if (createdAt < baseDate) return;
           const response = await instance.get(urlPath);
           const html = response.data;
@@ -144,8 +144,8 @@ const crawlENG = async (): Promise<void> => {
 
       const noticeData: NoticeData[] = await Promise.all(
         noticeHeaders.map(async (noticeHeader) => {
-          const id = await generateId(10);
           const { urlPath, createdAt, title } = noticeHeader;
+          const id = await generateHash(urlPath);
           if (createdAt < baseDate) return;
           const response = await instance.get(urlPath);
           const html = response.data;

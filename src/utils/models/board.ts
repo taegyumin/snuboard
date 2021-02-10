@@ -14,7 +14,12 @@ import dynamodb, { AttributeMap } from '../helpers/dynamodb';
 const { serviceLaunchedAt } = appConfig;
 
 function assertBoardData(data: AttributeMap): asserts data is BoardData {
-  const attributes: (keyof BoardData)[] = ['id', 'departmentId', 'name', 'url'];
+  const attributes: (keyof BoardData)[] = [
+    'id',
+    'departmentId',
+    'name',
+    'urlPath',
+  ];
   const isContainingAttributes = attributes.every((attr) => attr in data);
   if (isContainingAttributes) {
     return;
@@ -40,8 +45,8 @@ class Board {
     return this.data.name;
   }
 
-  get url(): string {
-    return this.data.url;
+  get urlPath(): string {
+    return this.data.urlPath;
   }
 
   getData(): BoardData {

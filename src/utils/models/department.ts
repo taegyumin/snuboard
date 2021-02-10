@@ -11,7 +11,7 @@ import dynamodb, { AttributeMap } from '../helpers/dynamodb';
 function assertDepartmentData(
   data: AttributeMap
 ): asserts data is DepartmentData {
-  const attributes: (keyof DepartmentData)[] = ['id', 'url', 'name'];
+  const attributes: (keyof DepartmentData)[] = ['id', 'urlPath', 'name'];
   const isContainingAttributes = attributes.every((attr) => attr in data);
   if (isContainingAttributes) {
     return;
@@ -29,8 +29,8 @@ class Department {
     return this.data.id;
   }
 
-  get url(): string {
-    return this.data.url;
+  get urlPath(): string {
+    return this.data.urlPath;
   }
 
   get name(): string {

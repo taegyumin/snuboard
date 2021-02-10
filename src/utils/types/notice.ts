@@ -3,6 +3,6 @@ export interface NoticeData {
   createdAt: string;
   title: string;
   boardId: string;
-  url: string;
+  urlPath: string;
   content?: string;
 }

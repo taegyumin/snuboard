@@ -2402,6 +2402,21 @@ aws-sdk@^2.624.0, aws-sdk@^2.7.0, aws-sdk@^2.834.0, aws-sdk@^2.838.0:
     uuid "3.3.2"
     xml2js "0.4.19"
 
+aws-sdk@^2.756.0:
+  version "2.839.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.839.0.tgz#74e9697e5dcb2d116032363ad80f5b705759fafb"
+  integrity sha512-CFgiZ8IUpI1Qqs0ECheGO592lvGG6dYp7SsMJ5Xegd+aBAn6dimPTSmrnkPHPyzFhMYtBx1kE6SxVkl9MKOcWg==
+  dependencies:
+    buffer "4.9.2"
+    events "1.1.1"
+    ieee754 "1.1.13"
+    jmespath "0.15.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    uuid "3.3.2"
+    xml2js "0.4.19"
+
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
@@ -7505,6 +7520,11 @@ nanoid@^2.1.0:
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.1.11.tgz#ec24b8a758d591561531b4176a01e3ab4f0f0280"
   integrity sha512-s/snB+WGm6uwi0WjsZdaVcuf3KJXlfGl2LcxgwkEwJF0D/BWzVWAZW/XY4bFaiR7s0Jk3FPvlnepg1H1b1UwlA==
 
+nanoid@^3.1.20:
+  version "3.1.20"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.1.20.tgz#badc263c6b1dcf14b71efaa85f6ab4c1d6cfc788"
+  integrity sha512-a1cQNyczgKbLX9jwbS/+d7W8fX/RfgYR7lVWwWOGIPNgK2m0MWvrGF6/m4kk6U3QcFMnZf3RIhL0v2Jgh/0Uxw==
+
 nanomatch@^1.2.9:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/nanomatch/-/nanomatch-1.2.13.tgz#b87a8aa4fc0de8fe6be88895b38983ff265bd119"
@@ -9276,6 +9296,14 @@ serialize-javascript@^5.0.1:
   dependencies:
     randombytes "^2.1.0"
 
+serverless-domain-manager@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/serverless-domain-manager/-/serverless-domain-manager-5.1.0.tgz#44c975b4adeac6b32507c92313ee001735d56c55"
+  integrity sha512-uGLGr9nWTupimWxVwz/2S/fK+YULsg8hQ0ZddS1DNerzctIVQBXVbLMGUJv34a9a5HV0YPvVqCA/JBNI7VOSvA==
+  dependencies:
+    aws-sdk "^2.756.0"
+    chalk "^4.1.0"
+
 serverless-dynamodb-local@^0.2.39:
   version "0.2.39"
   resolved "https://registry.yarnpkg.com/serverless-dynamodb-local/-/serverless-dynamodb-local-0.2.39.tgz#9022bb8fa5d2271b1959bf8728b03c8680e66ca2"
@@ -10425,6 +10453,11 @@ ts-loader@^8.0.15:
     loader-utils "^2.0.0"
     micromatch "^4.0.0"
     semver "^7.3.4"
+
+ts-md5@^1.2.7:
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/ts-md5/-/ts-md5-1.2.7.tgz#b76471fc2fd38f0502441f6c3b9494ed04537401"
+  integrity sha512-emODogvKGWi1KO1l9c6YxLMBn6CEH3VrH5mVPIyOtxBG52BvV4jP3GWz6bOZCz61nLgBc3ffQYE4+EHfCD+V7w==
 
 "ts-node@>= 8.3.0":
   version "9.1.1"

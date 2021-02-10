@@ -169,7 +169,7 @@ export const putWithErrorHandling = async (params: {
   ConditionExpression?: string;
 }): Promise<void> => {
   const { Key, Item, TableName, ConditionExpression } = params;
-  const idToCheckFakeConditionalException = generateId(15);
+  const idToCheckFakeConditionalException = generateId(10);
   try {
     await dynamodb
       .put({

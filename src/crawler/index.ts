@@ -14,13 +14,13 @@ const crawlIE = async (): Promise<void> => {
     '#block-system-main > div > div > div.view-content > table > tbody > tr';
   const CREATEDAT_SELECTOR = 'td.views-field.views-field-created';
   const TITLE_SELECTOR = 'td.views-field.views-field-title-field > a';
-  const URL_SELECTOR = 'td.views-field.views-field-title-field > a';
+  const URLPATH_SELECTOR = 'td.views-field.views-field-title-field > a';
   const CONTENT_SELECTOR = 'div.field-items > .field-item';
 
   const departmentId = '0';
   const department = await Department.get(departmentId);
   if (!department) throw new Error(`Department ${departmentId} not exist`);
-  const { url: departmentUrl } = department;
+  const { urlPath: departmentUrlPath } = department;
 
   const boards = await Board.find({ departmentId });
   if (boards.length === 0)
@@ -29,26 +29,26 @@ const crawlIE = async (): Promise<void> => {
   console.log(`crawlerBoard start with departmentId [${departmentId}]`);
 
   const crawlerBoard = async (board: Board) => {
-    const { url: boardUrl, id: boardId } = board;
+    const { urlPath: boardUrlPath, id: boardId } = board;
     const baseDate = await board.getBaseDate();
 
     const crawlerPage = async (pageNumber = 0) => {
       console.log(`crawlerPage start with boardId [${boardId}]`);
       const noticeHeaders: {
-        url: string;
+        urlPath: string;
         title: string;
         createdAt: string;
       }[] = [];
-      const response = await instance.get(`${boardUrl}?page=${pageNumber}`);
+      const response = await instance.get(`${boardUrlPath}?page=${pageNumber}`);
       const html = response.data;
       const $ = cheerio.load(html);
       const $notices = $(NOTICE_SELECTOR);
       await $notices.map(async (_, value) => {
         const createdAt = $(value).find(CREATEDAT_SELECTOR).text().trim();
         const title = $(value).find(TITLE_SELECTOR).text().trim();
-        const url = $(value).find(URL_SELECTOR).attr('href')?.trim();
+        const urlPath = $(value).find(URLPATH_SELECTOR).attr('href')?.trim();
         noticeHeaders.push({
-          url: departmentUrl + url,
+          urlPath: departmentUrlPath + urlPath,
           title,
           createdAt,
         });
@@ -57,13 +57,20 @@ const crawlIE = async (): Promise<void> => {
       const noticeData: NoticeData[] = await Promise.all(
         noticeHeaders.map(async (noticeHeader) => {
           const id = await generateId(10);
-          const { url, createdAt, title } = noticeHeader;
+          const { urlPath, createdAt, title } = noticeHeader;
           if (createdAt < baseDate) return;
-          const response = await instance.get(url);
+          const response = await instance.get(urlPath);
           const html = response.data;
           const $ = cheerio.load(html);
           const content = $(CONTENT_SELECTOR).text(); // get full content
-          const noticeData = { id, title, createdAt, content, url, boardId };
+          const noticeData = {
+            id,
+            title,
+            createdAt,
+            content,
+            urlPath,
+            boardId,
+          };
           await Notice.create(noticeData);
           // eslint-disable-next-line consistent-return
           return noticeData;
@@ -91,7 +98,7 @@ const crawlENG = async (): Promise<void> => {
     'td.views-field.views-field-created.views-align-center';
   const TITLE_SELECTOR =
     'td.views-field.views-field-title.views-align-center.alignLeft > a';
-  const URL_SELECTOR =
+  const URLPATH_SELECTOR =
     'td.views-field.views-field-title.views-align-center.alignLeft > a';
   const CONTENT_SELECTOR =
     '#block-system-main > div > article > div > div > div > div';
@@ -99,7 +106,7 @@ const crawlENG = async (): Promise<void> => {
   const departmentId = '1';
   const department = await Department.get(departmentId);
   if (!department) throw new Error(`Department ${departmentId} not exist`);
-  const { url: departmentUrl } = department;
+  const { urlPath: departmentUrlPath } = department;
 
   const boards = await Board.find({ departmentId });
   if (boards.length === 0)
@@ -108,17 +115,17 @@ const crawlENG = async (): Promise<void> => {
   console.log(`crawlerBoard start with departmentId [${departmentId}]`);
 
   const crawlerBoard = async (board: Board) => {
-    const { url: boardUrl, id: boardId } = board;
+    const { urlPath: boardUrlPath, id: boardId } = board;
     const baseDate = await board.getBaseDate();
 
     const crawlerPage = async (pageNumber = 0) => {
       console.log(`crawlerPage start with boardId [${boardId}]`);
       const noticeHeaders: {
-        url: string;
+        urlPath: string;
         title: string;
         createdAt: string;
       }[] = [];
-      const response = await instance.get(`${boardUrl}?page=${pageNumber}`);
+      const response = await instance.get(`${boardUrlPath}?page=${pageNumber}`);
       const html = response.data;
       const $ = cheerio.load(html);
       const $notices = $(NOTICE_SELECTOR);
@@ -127,9 +134,9 @@ const crawlENG = async (): Promise<void> => {
         if (isDSK) return;
         const createdAt = $(value).find(CREATEDAT_SELECTOR).text().trim();
         const title = $(value).find(TITLE_SELECTOR).text().trim();
-        const url = $(value).find(URL_SELECTOR).attr('href')?.trim();
+        const urlPath = $(value).find(URLPATH_SELECTOR).attr('href')?.trim();
         noticeHeaders.push({
-          url: departmentUrl + url,
+          urlPath: departmentUrlPath + urlPath,
           title,
           createdAt,
         });
@@ -138,13 +145,20 @@ const crawlENG = async (): Promise<void> => {
       const noticeData: NoticeData[] = await Promise.all(
         noticeHeaders.map(async (noticeHeader) => {
           const id = await generateId(10);
-          const { url, createdAt, title } = noticeHeader;
+          const { urlPath, createdAt, title } = noticeHeader;
           if (createdAt < baseDate) return;
-          const response = await instance.get(url);
+          const response = await instance.get(urlPath);
           const html = response.data;
           const $ = cheerio.load(html);
           const content = $(CONTENT_SELECTOR).text(); // get full content
-          const noticeData = { id, title, createdAt, content, url, boardId };
+          const noticeData = {
+            id,
+            title,
+            createdAt,
+            content,
+            urlPath,
+            boardId,
+          };
           await Notice.create(noticeData);
           // eslint-disable-next-line consistent-return
           return noticeData;

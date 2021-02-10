@@ -14,7 +14,7 @@ function assertNoticeData(data: AttributeMap): asserts data is NoticeData {
     'createdAt',
     'title',
     'boardId',
-    'url',
+    'urlPath',
   ];
   const isContainingAttributes = attributes.every((attr) => attr in data);
   if (isContainingAttributes) {
@@ -50,8 +50,8 @@ class Notice {
     return this.data.content;
   }
 
-  get url(): string {
-    return this.data.url;
+  get urlPath(): string {
+    return this.data.urlPath;
   }
 
   getData(): NoticeData {

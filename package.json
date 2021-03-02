@@ -12,7 +12,7 @@
     "db:install": "serverless dynamodb install --stage dev",
     "db:remove": "serverless dynamodb remove --stage dev",
     "dev": "node --max-old-space-size=1024 node_modules/serverless/bin/serverless.js offline start --stage dev",
-    "deploy:v1": "read -p \"[PRODUCTION WARNING]\nAre you sure deploying to v1?\nEnter stage again. \" -r\necho\nif [[ $REPLY =~ v1$ ]]\nthen serverless deploy -s v1\nfi",
+    "deploy:v0": "read -p \"[PRODUCTION WARNING]\nAre you sure deploying to v0?\nEnter stage again. \" -r\necho\nif [[ $REPLY =~ v0$ ]]\nthen serverless deploy -s v0\nfi",
     "deploy:test": "serverless deploy -s test"
   },
   "dependencies": {

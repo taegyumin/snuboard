@@ -2,11 +2,9 @@ import { APIGatewayProxyHandler, APIGatewayProxyEvent } from 'aws-lambda';
 import * as util from 'util';
 import { UserData } from '../utils/types/author';
 import { authorize } from '../utils/helpers/authorize';
-import { appConfig } from '../utils/constants/index';
+import { appConfig } from '../utils/constants';
 import { getPathName } from '../utils/constants/paths';
 
-// TODO remove
-// Temporary solution to ignore warnings generated from aws-sdk
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const EventEmitter = require('events');
 
@@ -35,8 +33,7 @@ type Response = {
   body: string;
 };
 
-const BASE_PATH = '';
-// const BASE_PATH = `/${appConfig.stage}`;
+const BASE_PATH = `/${appConfig.stage}`;
 
 const middleware = (handler: Handler): APIGatewayProxyHandler => {
   return async (event, context): Promise<Response> => {
